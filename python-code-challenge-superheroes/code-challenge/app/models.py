@@ -14,10 +14,10 @@ class Hero(db.Model):
     powers = db.relationship('Power', secondary='heropowers', back_populates='heroes')
 
 # add any models you may need. 
-class Power(db.model):
+class Power(db.Model):
     __tablename__ = 'powers'
 
-    id = db.Column(db.Interger, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(200))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
@@ -26,7 +26,7 @@ class Power(db.model):
     heroes = db.relationship('Hero', secondary='heropowers', back_populates='powers')
 
 
-class HeroPower(db.model):
+class HeroPower(db.Model):
     __tablename__ = 'heropowers'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -39,6 +39,6 @@ class HeroPower(db.model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    hero = db.relationship('Hero', back_populates='heropowers')
-    power = db.relationship('Power', back_populates='heropowers')
+    hero = db.relationship('Hero', back_populates='powers')
+    power = db.relationship('Power', back_populates='heroes')
     
